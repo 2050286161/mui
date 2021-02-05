@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title></title>
+		<link href="css/mui.min.css" rel="stylesheet" />
+		<link href="css/bottom.css" rel="stylesheet"/>
+
+		<style>
+			ul {
+				font-size: 14px;
+				color: #8f8f94;
+			}
+			.mui-btn {
+				padding: 10px;
+			}
+		</style>
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav">
+		  <a class="mui-icon mui-action-menu mui-icon-bars mui-pull-left"></a>
+		  <h1 class="mui-title"><a href="#popover" id="openPopover">社区</a></h1>
+		  <button id='setting' class=" mui-pull-right mui-btn-link">设置</button>
+		</header>
+		<div class="mui-content">
+		<h4><img src="images/tip.jpg" width="15px">热点</h4>
+		<ul class="mui-table-view">
+		    <li class="mui-table-view-cell mui-media">
+		        <a href="./out/1.htm">
+		            <!-- <img class="mui-media-object mui-pull-right " src="images/fup.png"> -->
+		            <div class="mui-media-body mui-navigate-right">
+						<div id="b1_l1"></div>
+		                <p class="mui-ellipsis">
+							<div id="b1_l2"></div>
+						</p>
+		            </div>
+		        </a>
+		    </li>
+		    <li class="mui-table-view-cell mui-media">
+		        <a href="./out/2.htm">
+		            <!-- <img class="mui-media-object mui-pull-right" src="images/fup.png"> -->
+		           <div class="mui-media-body mui-navigate-right ">
+		           	<div id="b2_l1"></div>
+		               <p class="mui-ellipsis">
+		           		<div id="b2_l2"></div>
+		           	</p>
+		           </div>
+		        </a>
+		    </li>
+		    <li class="mui-table-view-cell mui-media">
+		        <a href="./out/3.htm">
+		            <!-- <img class="mui-media-object mui-pull-right"  src="images/fup.png"> -->
+		            <div class="mui-media-body  mui-navigate-right">
+		            	<div id="b3_l1"></div>
+		                <p class="mui-ellipsis">
+		            		<div id="b3_l2"></div>
+		            	</p>
+		            </div>
+		        </a>
+		    </li>
+		</ul>
+		<h4>&nbsp;&nbsp;新闻<img src="images/user-photo.png" width="10px"></h4>
+		<ul class="mui-table-view">
+		    <li class="mui-table-view-cell mui-media">
+		        <a href="./out/4.htm">
+		            <!-- <img class="mui-media-object mui-pull-right"  src="images/fup.png"> -->
+		            <div class="mui-media-body  mui-navigate-right">
+		            	<div id="b4_l1"></div>
+		                <p class="mui-ellipsis">
+		            		<div id="b4_l2"></div>
+		            	</p>
+		            </div>
+		        </a>
+		    </li>
+		    <li class="mui-table-view-cell mui-media">
+		        <a href="./out/5.htm">
+		            <!-- <img class="mui-media-object mui-pull-right"  src="images/fup.png"> -->
+		             <div class="mui-media-body  mui-navigate-right">
+		            	<div id="b5_l1"></div>
+		                <p class="mui-ellipsis">
+		            		<div id="b5_l2"></div>
+		            	</p>
+		            </div>
+		        </a>
+		    </li>
+		    <li class="mui-table-view-cell mui-media">
+		        <a href="out/6.html">
+		            <!-- <img class="mui-media-object mui-pull-right" src="images/fup.png"> -->
+		            <div class="mui-media-body  mui-navigate-right">
+		            	<div id="b6_l1"></div>
+		                <p class="mui-ellipsis">
+		            		<div id="b6_l2"></div>
+		            	</p>
+		            </div>
+		        </a>
+		    </li>
+		</ul>
+	
+		</div>
+		
+		<nav class="mui-bar mui-bar-tab" id="footer">
+			<ul class="mui-table-view mui-grid-view">
+					       <li class="mui-table-view-cell mui-media mui-col-xs-2 mui-col-sm-2 mui-active">
+					        	<a href="javascript:;">
+									<span class="iconfont icon-shouye"></span>
+									<div class="mui-media-body">社区</div>
+								</a>
+							</li>
+					       <li class="mui-table-view-cell mui-media mui-col-xs-2 mui-col-sm-2 mui-active">
+					        	<a href="smart.html">
+									<span class="iconfont icon-shouye"></span>
+									<div class="mui-media-body">家居管理</div>
+								</a>
+							</li>
+					       <li class="mui-table-view-cell mui-media mui-col-xs-2 mui-col-sm-2 mui-active">
+					        	<a href="information.html">
+									<span class="iconfont icon-shouye"></span>
+									<div class="mui-media-body">个人信息</div>
+								</a>
+							</li>
+			</ui>
+		</nav>
+	<script src="libs/easymob-webim-sdk/jquery-1.11.1.js"></script>
+		<script src="js/mui.min.js"></script>
+		<script src="js/app.js"></script>
+	
+		<script>
+			(function($, doc) {
+				$.init();
+				var settings = app.getSettings();
+				var account = doc.getElementById('account');
+				//
+				window.addEventListener('show', function() {
+					var state = app.getState();
+					// account.innerText = state.account;
+				}, false);
+				$.plusReady(function() {
+					var settingPage = $.preload({
+						"id": 'setting',
+						"url": 'setting.html'
+					});
+					//设置
+					var settingButton = doc.getElementById('setting');
+					//settingButton.style.display = settings.autoLogin ? 'block' : 'none';
+					settingButton.addEventListener('tap', function(event) {
+						$.openWindow({
+							id: 'setting',
+							show: {
+								aniShow: 'pop-in'
+							},
+							styles: {
+								popGesture: 'hide'
+							},
+							waiting: {
+								autoShow: false
+							}
+						});
+					});
+					//--
+					$.oldBack = mui.back;
+					var backButtonPress = 0;
+					$.back = function(event) {
+						backButtonPress++;
+						if (backButtonPress > 1) {
+							plus.runtime.quit();
+						} else {
+							plus.nativeUI.toast('再按一次退出应用');
+						}
+						setTimeout(function() {
+							backButtonPress = 0;
+						}, 1000);
+						return false;
+					};
+				});
+				    // mui.get('../../json/data.json', function(data) {
+				    //        $(".info").renderValues(data);
+				    //     }, 'json');
+
+			}(mui, document));
+
+	</script>
+		   
+
+	</body>
+<script>
+		//发送请求json文件
+		 var requestURL = './Json/demo.json';        //json存放的url
+		 var request = new XMLHttpRequest();                                    
+		    request.open('GET', requestURL);
+		    request.responseType = 'json';
+		    request.send();
+		 
+		 request.onload = function() {
+		    var bookinfo = request.response;
+		    var book1_info = bookinfo['major'];
+		//将图书1的信息插入导入图书1的列表中
+		  var name_0 = document.getElementById('b1_l1');
+		  var author_0 = document.getElementById("b1_l2");
+		  name_0.textContent = '媒体:'+ bookinfo['major'][0].name;
+		  author_0.textContent=bookinfo['major'][0].author;
+		 
+		  var name_1 = document.getElementById('b2_l1');
+		  var author_1 = document.getElementById("b2_l2");
+		  name_1.textContent = '媒体:'+ bookinfo['major'][1].name;
+		  author_1.textContent=bookinfo['major'][1].author;
+		  var name_2 = document.getElementById('b3_l1');
+		  var author_2 = document.getElementById("b3_l2");
+		  name_2.textContent = '媒体:'+ bookinfo['major'][2].name;
+		  author_2.textContent=bookinfo['major'][2].author;
+		  
+		  var name_3 = document.getElementById('b4_l1');
+		  var author_3 = document.getElementById("b4_l2");
+		  name_3.textContent = '媒体:'+ bookinfo['hot'][0].name;
+		  author_3.textContent=bookinfo['hot'][0].author;
+		  var book1_info = bookinfo['hot'];
+		  var name_4 = document.getElementById('b5_l1');
+		  var author_4 = document.getElementById("b5_l2");
+		  name_4.textContent = '媒体:'+ bookinfo['hot'][1].name;
+		  author_4.textContent=bookinfo['hot'][1].author;
+		  
+		  var name_5 = document.getElementById('b6_l1');
+		  var author_5= document.getElementById("b6_l2");
+		  name_5.textContent = '媒体:'+ bookinfo['hot'][2].name;
+		  author_5.textContent=bookinfo['hot'][2].author;
+		}
+		</script>
+</html>

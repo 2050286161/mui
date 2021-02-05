@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title></title>
+		<link href="css/mui.min.css" rel="stylesheet" />
+		<link href="css/bottom.css" rel="stylesheet"/>
+
+		<style>
+			ul {
+				font-size: 14px;
+				color: #8f8f94;
+			}
+			.mui-btn {
+				padding: 10px;
+			}
+			.mui-table-view-cell .mui-active{
+			
+			background-color: #0062CC;
+			
+			}
+		</style>
+	</head>
+
+	<body>
+		    <header class="mui-bar mui-bar-nav">
+		      <a class="mui-icon mui-action-menu mui-icon-bars mui-pull-left"></a>
+		      <h1 class="mui-title"><a href="#popover" id="openPopover">个人信息</a></h1>
+			  <button id='setting' class=" mui-pull-right mui-btn-link">设置</button>
+		    </header>
+			<div class="mui-content mui-active">
+		        <!-- 主界面具体展示内容 -->
+				<ul class="mui-table-view">
+				<li class="mui-table-view-cell" ><div id="b1_l1"></div></li>
+				<li class="mui-table-view-cell"><div id="b1_l2"></div></li>
+				<li class="mui-table-view-cell"><div id="b1_l3"></div></li>
+				<li class="mui-table-view-cell"><div id="b1_l4"></div></li>
+				<li class="mui-table-view-cell"><div id="b1_l5"></div></li>
+				</ul>
+				</div>
+		
+		<nav class="mui-bar mui-bar-tab" id="footer">
+			<ul class="mui-table-view mui-grid-view">
+					       <li class="mui-table-view-cell mui-media mui-col-xs-2 mui-col-sm-2 mui-active">
+					        	<a href="javascript:;">
+									<a href="main.html">
+									<span class="iconfont icon-shouye"></span>
+									<div class="mui-media-body">社区</div>
+								</a>
+							</li>
+					       <li class="mui-table-view-cell mui-media mui-col-xs-2 mui-col-sm-2 mui-active">
+					        	<a href="javascript:;">
+									<a href="smart.html">
+									<span class="iconfont icon-shouye"></span>
+									<div class="mui-media-body">家居管理</div>
+								</a>
+							</li>
+					       <li class="mui-table-view-cell mui-media mui-col-xs-2 mui-col-sm-2 mui-active">
+					        	<a href="javascript:;">
+									<span class="iconfont icon-shouye"></span>
+									<div class="mui-media-body">个人信息</div>
+								</a>
+							</li>
+			</ui>
+		</nav>
+		<script src="js/mui.min.js"></script>
+		<script src="js/app.js"></script>
+		<script>
+			(function($, doc) {
+				$.init();
+				var settings = app.getSettings();
+				var account = doc.getElementById('account');
+				//
+				window.addEventListener('show', function() {
+					var state = app.getState();
+					
+				}, false);
+				$.plusReady(function() {
+					var settingPage = $.preload({
+						"id": 'setting',
+						"url": 'setting.html'
+					});
+					//设置
+					var settingButton = doc.getElementById('setting');
+					//settingButton.style.display = settings.autoLogin ? 'block' : 'none';
+					settingButton.addEventListener('tap', function(event) {
+						$.openWindow({
+							id: 'setting',
+							show: {
+								aniShow: 'pop-in'
+							},
+							styles: {
+								popGesture: 'hide'
+							},
+							waiting: {
+								autoShow: false
+							}
+						});
+					});
+					//--
+					$.oldBack = mui.back;
+					var backButtonPress = 0;
+					$.back = function(event) {
+						backButtonPress++;
+						if (backButtonPress > 1) {
+							plus.runtime.quit();
+						} else {
+							plus.nativeUI.toast('再按一次退出应用');
+						}
+						setTimeout(function() {
+							backButtonPress = 0;
+						}, 1000);
+						return false;
+					};
+				});
+			}(mui, document));
+		</script>
+		<script>
+				//发送请求json文件
+				 var requestURL = './Json/information.json';        //json存放的url
+				 var request = new XMLHttpRequest();                                    
+				    request.open('GET', requestURL);
+				    request.responseType = 'json';
+				    request.send();
+				 
+				 request.onload = function() {
+				    var bookinfo = request.response;
+				    var book1_info = bookinfo['information'];
+				//将图书1的信息插入导入图书1的列表中
+				  var name = document.getElementById('b1_l1');
+				  var id = document.getElementById("b1_l2");
+				  var 账号=document.getElementById("b1_l3")
+				  var 邮箱=document.getElementById("b1_l4")
+				  var 备注=document.getElementById("b1_l5")
+				  var update=document.getElementById("b1_l6")
+				  name.textContent = '昵称:'+ bookinfo['information'][0].name;
+				  id.textContent="id:"+bookinfo['information'][0].id;
+				  账号.textContent = '账号:'+ bookinfo['information'][0].账号;
+				  邮箱.textContent='邮箱:'+bookinfo['information'][0].邮箱;
+				  备注.textContent = '签名:'+ bookinfo['information'][0].备注
+	}			 
+	</script>
+	</body>
+
+</html>

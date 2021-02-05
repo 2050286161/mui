@@ -1,0 +1,520 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title></title>
+		<link href="css/mui.min.css" rel="stylesheet" />
+		<link href="css/bottom.css" rel="stylesheet"/>
+  <meta name="x5-page-mode" content="app"> 
+ <link href="https://statics.oneplus.cn/ov/support/support-list/cn/home/index.css?20210112161151" rel="stylesheet">
+ <script src="js/mui.min.js"></script>
+ <script src="js/app.js"></script>
+ <script>
+	 var modify;
+	 var update;	
+	 checkAll=function (obj){
+	 	var checked=obj.checked;
+	 	var item=document.getElementsByName("item");
+	 	for(var i=0;i<item.length;i++){
+	 		if(item[i].checked){
+	 			item[i].checked=null;
+	 		}else{
+	 			item[i].checked=checked;
+	 		}
+	 		item[i].checked=checked;	
+	 	}
+	 }
+	 delRow=function(){
+	 	var items=document.getElementsByName("item");
+	 	for(var i=1;i<items.length;i++){
+	 		if(items[i].checked){
+	 			var parentNode=items[i].parentNode.parentNode;
+	 			var tables=parentNode.parentNode;
+	 			tables.removeChild(parentNode);
+	 			i--;
+	 		}
+	 	}
+	 }
+	 function add(user,user_id,placeValue){
+	 	//创建一个框架节点
+	 	var tr =document.createElement("tr");
+	 	var td1 =document.createElement("td");
+	 	var td2 =document.createElement("td");
+	 	var td3 =document.createElement("td");
+	 	var td4 =document.createElement("td");
+	 	// var td5 =document.createElement("td");
+	 	var td6 =document.createElement("td");
+	 	var td7 =document.createElement("td");
+	 	
+	 	//赋值
+	 	//setAttribute：修改节点属性
+	 	var input1=document.createElement("input");
+	 	input1.setAttribute('type','checkbox');
+	 	input1.setAttribute('name','item');
+	 	td1.appendChild(input1);
+	 	//获取到的值进行赋值,innerHTML获取到的值会把标签同时获取
+	 	td2.innerHTML=user;
+	 	td3.innerHTML=user_id;
+	 	td4.innerHTML=placeValue;
+	 	// td5.innerHTML=selectedValue;
+	 	// td6.innerHTML=radioValue;
+	 	//操作添加
+	 	//创建一个input节点
+	 	var input2=document.createElement("input");
+	 	input2.setAttribute('type','button');
+	 	input2.setAttribute('value','删除');
+	 	input2.setAttribute('onclick','del(this)');
+	 	//追加节点
+	 	td6.appendChild(input2);
+	 	
+	 	var input3=document.createElement("input");
+	 	input3.setAttribute('type','button');
+	 	input3.setAttribute('name','update');
+	 	input3.setAttribute('value','修改');
+	 	//添加修改事件
+	 	input3.setAttribute('onclick','modify(this)');
+	 	td7.appendChild(input3);
+	 	
+	 	//将所有td标签对放入tr中
+	 	tr.appendChild(td1);
+	 	tr.appendChild(td2);
+	 	tr.appendChild(td3);
+	 	tr.appendChild(td4);
+	 	// tr.appendChild(td5);
+	 	tr.appendChild(td6);
+	 	tr.appendChild(td7);
+	 	var table=document.getElementById('listTable');
+	 	table.appendChild(tr);
+	 	//重置（方法）
+	 	// resets();
+	 }
+	 
+	 window.onload = function() {
+	 	var submits = document.getElementById("submit");
+	 	//获取焦点
+	 	document.getElementById('user').focus();
+	 	document.getElementById('user').select();
+	 	//增加
+	 	submits.onclick = function() {
+	 		//获取设备信息
+	 		var user = document.getElementById("user").value;
+	 		//获取密码
+	 		var user_id = document.getElementById("user_id").value;
+	 		//获取籍贯
+	 		var place = document.getElementById("place");
+	 		if(user.length==0||user_id.length==0||user==undefined||user_id==undefined)
+	 		return alert("请输入缺少的信息");
+	 		
+	 		
+	 		
+	 		//获取索引
+	 		var index = place.selectedIndex;
+	 		//获取选中值
+	 		var placeValue = place.options[index].text;
+	 		//增加
+	 		//var json={user_id:{"设备名":user;"设备类型":placeValue}}
+	 		add(user,user_id,placeValue);
+	 		// add1();			}
+	 	// var requestURL = '../Json/data.json';        //json存放的url
+	 	//  var request = new XMLHttpRequest();                                    
+	 	//     request.open('GET', requestURL);
+	 	//     request.responseType = 'json';
+	 	//     request.send();
+	 	 
+	 	//   function add1() {
+	 	//     var bookinfo = request.response;
+	 	// //将图书1的信息插入导入图书1的列表中
+	 	//    bookinfo[0].user.push("300");
+	 	//    alert(bookinfo[0].user)
+	 	//   //var s="{"+"\"user\":"+"\""+user_id+"\""+","+"\"user_id\":"+"\""+user+"\""+","+"\"type\":"+"\""+placeValue+"\""+"}";
+	 	// 	// s=s.toString();
+	 	// 	// s=JSON.parse(s);
+	 	// 	// s.data.push(requestURL)
+	 	
+	 	// }
+	 	
+	 	//重置
+	  	 
+	 	//全选
+	 	
+	 	//删除单项
+	 	
+	 	//删除选中
+	 	
+	 }
+	  
+	 var	rowIndex;
+	 //修改回显
+	modify=function(obj){
+	 	//重置
+	 	resets();
+	 	//获取
+	 	var user=document.getElementById('user');
+	 	var user_id = document.getElementById("user_id");
+	 	var place = document.getElementById("place");
+	 	var index = place.selectedIndex;
+	 	var placeValue = place.options[index].text;
+	 	//获取tr和td对，以及选中的下标
+	 	var tr = obj.parentNode.parentNode;
+	     var td = tr.getElementsByTagName('td');
+	 	rowIndex=obj.parentNode.parentNode.rowIndex;
+	 	//赋值
+	 	user.value=td[1].innerHTML;
+	  
+	 	user_id.value=td[2].innerHTML;
+	 	placeValue=td[3].innerHTML;
+	 	for(var i=0;i<place.options.length;i++){
+	 		var value= place.options[i].text;
+	 		if(value==placeValue){
+	 			place.options[i].selected=true;
+	 		}
+	 	}
+	 	// var interValue=td[4].innerHTML;
+	 	// var str= interValue.split(" ");
+	 	// var interests = document.getElementsByName("interest");
+	 	// for(var i=0;i<str.length;i++){
+	 	// 	for (let j=0;j<interests.length;j++) {
+	 	// 		if(interests[j].value==str[i]){
+	 	// 			interests[j].checked=true;
+	 	// 		}
+	 	// 	}
+	 	// }
+	 	// var identitys=document.getElementsByName("identity");
+	 	//这里更新到的值会出现换行，造成字符串无法比较
+	 	// var identValue=td[5].innerText;
+	 	// identValue=identValue.replace(/[\r\n]/g,"");//去掉换行符
+	 	// if(identValue=="党员"){
+	 	// 	identitys[0].checked=true;
+	 	// }else if(identValue=="团员"){
+	 	// 	identitys[1].checked=true;
+	 	// }else if(identValue=="群众"){
+	 	// 	identitys[2].checked=true;
+	 	// }
+	 	//回显完毕后，修改按钮事件
+	 	var addButton=document.getElementById('submit');
+	 	try{
+	 		if(addButton.getAttribute("value")=="提交"){
+	 			addButton.setAttribute('value','更新');
+	 			addButton.setAttribute('id','update');
+	 			addButton.setAttribute('onclick','update()');
+	 		}
+	 	}catch(e){
+	 		//TODO handle the exception
+	 	}
+	 }
+	  
+	 //修改
+	 update=function(){
+	 	//获取
+	 	var table=document.getElementById('listTable');
+	 	var user=document.getElementById('user');
+	 	var user_id = document.getElementById("user_id");
+	 	var place = document.getElementById("place");
+	 	var index = place.selectedIndex;
+	 	var placeValue = place.options[index].text;
+// 	 	var interests = document.getElementsByName("interest");
+// //	 	获取文本值
+// 	 	var selectedValue="";
+// 	 	for(var i=0;i<interests.length;i++){
+// 	 		if(interests[i].checked){
+// 	 			selectedValue=selectedValue+interests[i].value+" ";
+// 	 		}
+// 	 	}
+// 	 	//去掉末尾空格
+// 	 	selectedValue=selectedValue.replace(/(\s*$)/g, "");
+// 	 	var radioValue="";
+// 	 	var identitys=document.getElementsByName("identity");
+// 	 	for(var i=0;i<identitys.length;i++){
+// 	 		if(identitys[i].checked){
+// 	 			radioValue=radioValue+identitys[i].nextSibling.nodeValue;
+// 	 		}
+// 	 	}
+	 	
+	 	//赋值
+	 	table.rows[rowIndex].cells[1].innerHTML=user.value;
+	 	table.rows[rowIndex].cells[2].innerHTML=user_id.value;
+	 	table.rows[rowIndex].cells[3].innerHTML=placeValue;
+	 	// table.rows[rowIndex].cells[4].innerHTML=selectedValue;
+	 	// table.rows[rowIndex].cells[5].innerText=radioValue;
+	 	
+	 	//更新成功后，将按钮改回原来按钮，同时重置
+	 	var updateButton=document.getElementById('update');
+	 	updateButton.setAttribute('value','提交');
+	 	updateButton.setAttribute('type','button');
+	 	updateButton.setAttribute('id','submit');
+	 	updateButton.setAttribute('onclick','add()');
+	 	resets();
+	 }
+	 
+	  var  resets1= document.getElementById("reset");
+	 //重置
+	 resets1.onclick = function() {
+	 	//获取设备信息
+	 	document.getElementById("user").value="";
+	 	//获取密码
+	 	document.getElementById("user_id").value=""; 
+	 	// var inputs=document.getElementsByTagName("input");
+	 	// for(var i=0;i<inputs.length;i++){
+	 	// 	if(inputs[i].type=='user'){
+	 	// 		inputs[i].value="";
+	 	// 	}else if(inputs[i].type=='user_id'){
+	 	// 		inputs[i].value="";
+	 	// 	}
+	 	// }
+	 	//重置下拉框
+	 	var place=document.getElementById('place');
+	 	place.selectedIndex=0;
+	 	//获取焦点
+	 	document.getElementById('user').focus();	
+	 }
+	 del=function(obj){
+	 	var parentTr=obj.parentNode.parentNode;
+	 	var parentTable = parentTr.parentNode;
+	 	parentTable.removeChild(parentTr);
+	 }
+	 function resets(){
+	 		 resets1.onclick()
+	 		 }
+	 }
+ </script>
+		<style>
+			ul {
+				font-size: 14px;
+				color: #8f8f94;
+			}
+			.mui-btn {
+				padding: 10px;
+			}
+			.table {
+			                border: 1px solid #cad9ea;
+			                color: #666;
+			            }
+			
+			            .table th {
+			                background-repeat: repeat-x;
+			                height: 30px;
+			            }
+			
+			            .table td,
+			            .table th {
+			                border: 1px solid #cad9ea;
+			                padding: 0 1em 0;
+			            }
+			
+			            /* .table tr.alter {
+			                background-color: #f5fafe;
+			            } */
+		</style>
+	</head>
+
+	<body>
+		
+		<!-- 侧滑导航根容器 -->
+		<div class="mui-off-canvas-wrap mui-draggable">
+		  <!-- 菜单容器 -->
+		  <aside id="offCanvasSide" class="mui-off-canvas-left">
+		  			<div id="offCanvasSideScroll" class="mui-scroll-wrapper">
+		  				<div class="mui-scroll">
+		  					<span class="android-only"></span>
+		  					<div class="content">
+		  						<p style="margin: 10px 10px;">
+		  							
+										<button id="offCanvasHide" type="button" class="mui-btn mui-btn-danger mui-btn-block" style="padding: 5px 20px;">设备管理</button>
+		  						</p>
+								<div id="menu1" class="menu">
+										<ul class="mui-table-view">
+											
+											<li class="mui-table-view-cell mui-media">
+											    <a href="./smart.html">	
+											        <!-- <img class="mui-media-object mui-pull-right " src="images/fup.png"> -->
+											        <div class="mui-media-body mui-navigate-right">
+														<button id="offCanvasHide" type="button"  style="text-align: left; padding: 5px 10px; width: 100%; height: 100%;">商城</button>
+											        </div>
+											    </a>
+											</li>
+										    <li class="mui-table-view-cell mui-media">
+										        <a href="#">	
+										            <!-- <img class="mui-media-object mui-pull-right " src="images/fup.png"> -->
+										            <div class="mui-media-body mui-navigate-right">
+														<button id="offCanvasHide" type="button"  style="text-align: left; padding: 5px 10px; width: 100%; height: 100%;">设备管理</button>
+										            </div>
+										        </a>
+										    </li>
+											<li class="mui-table-view-cell mui-media">
+											</ui>
+											
+										</div>
+		  					</div>
+		  					
+		  				</div>
+		  			</div>
+		  		</aside>
+		  <div class="mui-inner-wrap">
+		    <!-- 主页面标题 -->
+		    <header class="mui-bar mui-bar-nav">
+		      <a class="mui-icon mui-action-menu mui-icon-bars mui-pull-left"></a>
+		      <h1 class="mui-title"><a href="#popover" id="openPopover">家居管理</a></h1>
+			  <button id='setting' class=" mui-pull-right mui-btn-link">设置</button>
+		    </header>
+		   <div class="mui-content mui-scroll-wrapper">
+		   	      <div class="mui-scroll">
+		   	        <!-- 主界面具体展示内容 -->
+		   			<div class="oneplus-store-cn">
+						<div class="mui-content mui-active">
+						    <!-- 主界面具体展示内容 -->
+							<ul class="mui-table-view">
+								<li   class="mui-table-view-cell" align="center"><h3>新增设备信息</h3></li>
+							<li class="mui-table-view-cell">
+								<label>设  备  名：</label>
+								<input type="user" id="user" style="width:80%" />
+							</li>
+							<li class="mui-table-view-cell">
+								<label>设备编号：</label>
+								<input type="user_id" id="user_id" style="width:80%"/>
+							</li>
+							<li class="mui-table-view-cell">
+								<label>设备类型：</label>
+								<select id="place" style="width: 80%; height: 50px;">
+									<option value="1">智能单品</option>
+									<option value="2">智能设备</option>
+								</select>
+							</li>
+							<li class="mui-table-view-cell" style="text-align: center;">
+								<input type="button" id="submit" value="提交"/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+								<input type="button" id="reset" value="重置" />
+							</li>
+							</ul>
+							</div>
+							<div class="table">
+						<table border="1" cellspacing="0" cellpadding="0" id="listTable">
+								<tr>
+									<td>设备</td>
+									<td>设备名</td>
+									<td>设备编号</td>
+									<td>设备类型</td>
+									<td>删除</td>
+									<td>更改</td>
+								</tr>
+								<tr>
+									<td>
+										<label>全选</label>
+										<input type="checkbox" name="item" onclick="checkAll(this);"/>
+									</td>
+									<td  colspan="6" align="center">
+										<input type="button" value="选中删除" onclick="delRow();"/>
+									</td>
+								</tr>
+								<tr>
+									<td><input type="checkbox" name="item"/></td>
+									<td>烟雾报警器</td>
+									<td>user_01</td>
+									<td>智能设备</td>
+									<td>
+										<input type="button" value="删除" onclick="del(this);"/>
+									</td>
+									<td>
+										<input type="button" name="update" value="修改" onclick="modify(this)"/>
+									</td>
+								</tr>
+								<tr>
+									<td><input type="checkbox" name="item"/></td>
+									<td>路由</td>
+									<td>user_02</td>
+									<td>智能单品</td>
+									<td>
+										<input type="button" value="删除" onclick="del(this);"/>
+									</td>
+									<td>
+										<input type="button" name="update" value="修改" onclick="modify(this)"/>
+									</td>
+								</tr>
+							</table>
+							</div>
+						</div>
+							
+							</div>
+		   		</div></div>
+		   		</div>
+		   		
+		   </div>
+		   </div>
+			
+		<nav class="mui-bar mui-bar-tab" id="footer">
+			<ul class="mui-table-view mui-grid-view">
+					       <li class="mui-table-view-cell mui-media mui-col-xs-2 mui-col-sm-2 mui-active">
+					        	<a href="main.html">
+									<span class="iconfont icon-shouye"></span>
+									<div class="mui-media-body">社区</div>
+								</a>
+							</li>
+					       <li class="mui-table-view-cell mui-media mui-col-xs-2 mui-col-sm-2 mui-active">
+					        	<a href="javascript:;">
+									<span class="iconfont icon-shouye"></span>
+									<div class="mui-media-body">家居管理</div>
+								</a>
+							</li>
+					       <li class="mui-table-view-cell mui-media mui-col-xs-2 mui-col-sm-2 mui-active">
+					        	<a href="javascript:;">
+									<a href="information.html">
+									<span class="iconfont icon-shouye"></span>
+									<div class="mui-media-body">个人信息</div>
+								</a>
+							</li>
+			</ui>
+		</nav>
+	
+		<script>
+			(function($, doc) {
+				$.init();
+				var settings = app.getSettings();
+				var account = doc.getElementById('account');
+				//
+				window.addEventListener('show', function() {
+					var state = app.getState();
+				
+				}, false);
+				$.plusReady(function() {
+					var settingPage = $.preload({
+						"id": 'setting',
+						"url": 'setting.html'
+					});
+					//设置
+					var settingButton = doc.getElementById('setting');
+					//settingButton.style.display = settings.autoLogin ? 'block' : 'none';
+					settingButton.addEventListener('tap', function(event) {
+						$.openWindow({
+							id: 'setting',
+							show: {
+								aniShow: 'pop-in'
+							},
+							styles: {
+								popGesture: 'hide'
+							},
+							waiting: {
+								autoShow: false
+							}
+						});
+					});
+					//--
+					$.oldBack = mui.back;
+					var backButtonPress = 0;
+					$.back = function(event) {
+						backButtonPress++;
+						if (backButtonPress > 1) {
+							plus.runtime.quit();
+						} else {
+							plus.nativeUI.toast('再按一次退出应用');
+						}
+						setTimeout(function() {
+							backButtonPress = 0;
+						}, 1000);
+						return false;
+					};
+				});
+			}(mui, document));
+		</script>
+	</body>
+
+</html>
